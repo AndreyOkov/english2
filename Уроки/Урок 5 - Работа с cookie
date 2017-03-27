@@ -1,0 +1,15 @@
+222. Работа с куками:
+
+1. Запись куки в браузер пользователя(т.е данные которые мы отправляем пользователю):
+    $cookies = Yii::$app->response->cookies;
+    $cookies->add(new \yii\web\Cookie([
+    'name' => 'name',
+    'value' => $name
+    ]));
+
+2. Проверка пришедших данных:
+    $cookies = Yii::$app->request->cookies;
+    $name = $cookies->getValue('name');
+
+3. Удаление cookie( сервер посылает запрос браузеру и говорит что эту куку надо удалить ):
+$cookies->remove('name');

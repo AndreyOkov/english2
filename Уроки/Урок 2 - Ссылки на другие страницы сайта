@@ -1,0 +1,2 @@
+Все ссылки пишутся с использованием специального urlMenedger в таком виде:
+<a href="<?=Yii::$app->urlManager->createUrl(['site/words', 'en'=>$words->enword])?>"</a>
