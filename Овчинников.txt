@@ -1,0 +1,11 @@
+1)обновление composer на OpenServer выполняется из консоли OpenServer'a
+Обратить внимание на букву диска и версию php
+php F:\openserver\modules\php\PHP-5.4\composer.phar self-update
+
+2)устанавливаем плагин:
+composer global require "fxp/composer-asset-plugin:~1.1.1"
+
+3)Далее чтобы загрузить в папку с сайтом yii выполняем команду:
+composer create-project yiisoft/yii2-app-basic ./ 2.0.8
+
+
