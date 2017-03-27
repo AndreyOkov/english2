@@ -1,0 +1,10 @@
+В SiteController добавляем новый экшн:
+
+   public function actionUser(){
+        $name = Yii::$app->request->get("name", "!значение по умолчанию!");  ///!!!Получение GET - параметров
+         $name = Yii::$app->request->post("name");///!!!Получение POST - параметров
+        return $this->render('user',[
+            'name' => $name
+        ]);
+
+    }

@@ -1,0 +1,3 @@
+Комманда для загрузки фикстур
+
+php yii fixture/load Category --namespace='app\fixtures' --interactive=0

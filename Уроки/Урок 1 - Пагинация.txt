@@ -1,0 +1,18 @@
+1. Для создания пагинации достаточно настроит экшен по образцу
+public function actionWords()
+    {
+        $words = Words::find();
+        $pagination = new Pagination([
+            'defaultPageSize' => 4,         ///!!!!Важная настройка которая показывает количество записей базы данных которое будет показано на стр.
+            'totalCount' => $words->count() ///!!!!Общее количество записей базы
+        ]);
+
+        $words = $words->offset($pagination->offset)->limit($pagination->limit)->all();
+        return $this->render('words', [
+            'words' => $words,
+            'pagination'=> $pagination ///!!!Не забываем передавать объект в вид
+        ]);
+    }
+
+ 2. В соответствующем виде добавлен виджет который управляет пагинацией
+ <?= \yii\widgets\LinkPager::widget(['pagination' => $pagination])?>
