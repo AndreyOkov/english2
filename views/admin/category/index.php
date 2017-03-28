@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Category;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -26,8 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'parent_id',
-
+            [
+             'attribute'=>'parent_id',
+                'filter' => Category::find()->select(['name','id'])->indexBy('id')->column(),
+                'value' => 'parent.name',
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

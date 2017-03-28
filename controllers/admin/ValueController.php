@@ -62,12 +62,13 @@ class ValueController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($product_id = null)
     {
         $model = new Value();
-
+        $model->product_id = $product_id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'product_id' => $model->product_id, 'attribute_id' => $model->attribute_id]);
+//            return $this->redirect(['view', 'product_id' => $model->product_id, 'attribute_id' => $model->attribute_id]);
+            return $this->redirect(['admin/product/view', 'id' => $model->product_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -85,9 +86,12 @@ class ValueController extends Controller
     public function actionUpdate($product_id, $attribute_id)
     {
         $model = $this->findModel($product_id, $attribute_id);
+        $model->product_id = $product_id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'product_id' => $model->product_id, 'attribute_id' => $model->attribute_id]);
+//            return $this->redirect(['view', 'product_id' => $model->product_id, 'attribute_id' => $model->attribute_id]);
+            return $this->redirect(['admin/product/view', 'id' => $model->product_id]);
+
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -106,7 +110,8 @@ class ValueController extends Controller
     {
         $this->findModel($product_id, $attribute_id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['admin/product/view', 'id' =>$product_id]);
+
     }
 
     /**

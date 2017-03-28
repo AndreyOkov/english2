@@ -1,4 +1,6 @@
 <?php
+namespace app\fixtures;
+
 use yii\test\ActiveFixture;
 
 class ProductTagFixture extends ActiveFixture{

@@ -1,5 +1,8 @@
 <?php
 
+use yii\data\ActiveDataProvider;
+use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -29,12 +32,43 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'category_id',
+            [
+
+                'attribute' => 'category_id',
+                'value' => ArrayHelper::getValue($model, 'category.name'),
+            ],
             'name',
             'content:ntext',
             'price',
-            'active',
+                'active:boolean',
+            [
+                'label' => 'Tags',
+                'value' => implode(', ', ArrayHelper::map($model->tags, 'id', 'name')),
+            ],
+
+            
         ],
     ]) ?>
+<p>
+    <?= Html::a('Добавить значение', ['admin/value/create', 'product_id'=> $model->id], ['class' => 'btn btn-primary'])?>
+</p>
+    <?= GridView::widget([
+        'dataProvider' => new ActiveDataProvider(['query'=> $model->getValues()]),
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'product_id',
+            [
+                'attribute' => 'attribute_id',
+                'value' => 'productAttribute.name',
+            ],
+            'value',
+
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'controller' => 'admin/value',
+            ],
+        ],
+    ]); ?>
 
 </div>

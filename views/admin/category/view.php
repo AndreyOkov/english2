@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -24,13 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
+<?php //echo ArrayHelper::getValue($model, 'parent_id.name'); die;?>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
             'name',
-            'parent_id',
+            [
+            'attribute' => 'parent_id',
+            'value' => ArrayHelper::getValue($model, 'parent_id.name'),
+            ],
         ],
     ]) ?>
 
