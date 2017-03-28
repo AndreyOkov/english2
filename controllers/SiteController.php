@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Words;
 use Yii;
+use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -121,5 +123,41 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionWords()
+    {
+        $words = Words::find();
+        $pagination = new Pagination([
+            'defaultPageSize' => 4,
+            'totalCount' => $words->count()
+        ]);
+
+        $words = $words->offset($pagination->offset)
+            ->limit($pagination->limit)->all();
+        $cookies = Yii::$app->request->cookies;
+        return $this->render('words', [
+            'words' => $words,
+            'pagination' => $pagination,
+            'name' => $cookies->getValue('name')
+        ]);
+    }
+
+    public function actionUser()
+    {
+        $name = Yii::$app->request->get("name");
+
+
+        $cookies = Yii::$app->response->cookies;
+        $cookies->add(new \yii\web\Cookie([
+            'name' => 'name',
+            'value' => $name
+        ]));
+
+
+
+        return $this->render('user', [
+            'name' => $name
+        ]);
     }
 }
